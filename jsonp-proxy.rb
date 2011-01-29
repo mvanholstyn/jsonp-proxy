@@ -3,6 +3,7 @@ require 'sinatra'
 require "uri"
 require 'net/http'
 require 'net/https'
+require 'cgi'
 require 'json'
 
 get '/' do
