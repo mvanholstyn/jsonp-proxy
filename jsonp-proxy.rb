@@ -29,7 +29,7 @@ get '/' do
   end
 
   if url.user && url.password
-    request.basic_auth url.user, url.password
+    request.basic_auth CGI.unescape(url.user), CGI.unescape(url.password)
   end
   
   request.body = params['b'] if params['b']
