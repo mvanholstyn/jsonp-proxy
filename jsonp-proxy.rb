@@ -8,7 +8,7 @@ require 'json'
 get '/' do
   headers = params['h'] ? JSON.parse(params['h']) : {}
   url = URI.parse(params['u'])
-  
+
   if params['m'] == 'get'
     request = Net::HTTP::Get.new(url.path)
   elsif params['m'] == 'post'
@@ -26,11 +26,17 @@ get '/' do
   headers.each do |key, value|
     request.add_field(key, value)
   end
+
+  if url.user && url.password
+    request.basic_auth url.user, url.password
+  end
   
   request.body = params['b'] if params['b']
   
   http = Net::HTTP.new(url.host, url.port)
-  http.use_ssl = true
+  
+  http.use_ssl = true if url.scheme == "https"
+  
   response = http.start do |http|
     http.request(request)
   end
