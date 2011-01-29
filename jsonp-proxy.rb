@@ -41,6 +41,7 @@ get '/' do
     http.request(request)
   end
 
-  arg = "{ status: #{response.code}, headers: [#{response.each_name { }.to_json}], body: '#{response.body}' }"
+  #arg = "{ status: #{response.code}, headers: [#{response.each_name { }.to_json}], body: '#{response.body}' }"
+  arg = response.body
   json = "#{params['jsonp']}(#{arg});"
 end
