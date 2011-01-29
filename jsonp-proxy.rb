@@ -7,6 +7,7 @@ require 'json'
 
 get '/' do
   headers = params['h'] ? JSON.parse(params['h']) : {}
+  puts "******* #{params['u']} ********"
   url = URI.parse(params['u'])
 
   path = "#{url.path}?#{url.query}"
